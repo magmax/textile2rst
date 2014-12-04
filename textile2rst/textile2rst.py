@@ -5,7 +5,7 @@ from __future__ import print_function
 import re
 import argparse
 from collections import namedtuple
-from pprint import pprint
+
 
 Link = namedtuple('Link',
                   ['original', 'link', 'text', 'alt'])
@@ -21,8 +21,10 @@ class Translator(object):
         return self._replace(content, links) + self._printable_links(links)
 
     def _get_links(self, content):
-        for m in re.finditer('((?:"(.*?)":)?"(.*?)":(https?://.*?))\.?[,; \r\t$\n\(\)]', content, re.MULTILINE):
-            yield Link(original=m.group(1), alt=m.group(2), text=m.group(3), link=m.group(4))
+        regex = '((?:"(.*?)":)?"(.*?)":(https?://.*?))\.?[,; \r\t$\n\(\)]'
+        for m in re.finditer(regex, content, re.MULTILINE):
+            yield Link(original=m.group(1), alt=m.group(2),
+                       text=m.group(3), link=m.group(4))
 
     def _read_file(self, filename):
         with open(filename) as fd:
@@ -48,11 +50,13 @@ class Translator(object):
         # replace sections
         def section_repl(symbol):
             def inner(matchobj):
-                return '%s\n%s' % (matchobj.group(1), len(matchobj.group(1)) * symbol)
+                return '%s\n%s' % (matchobj.group(1),
+                                   len(matchobj.group(1)) * symbol)
             return inner
         for n, symbol in enumerate('=-~^_#%'):
             pat = '^h%d\.\s*(.*)$' % (n + 1)
-            content = re.sub(pat, section_repl(symbol), content, flags=re.MULTILINE)
+            content = re.sub(pat, section_repl(symbol), content,
+                             flags=re.MULTILINE)
 
         # replace code
         def code_repl(matchobj):
@@ -60,17 +64,25 @@ class Translator(object):
             code = matchobj.group('code')
             return '.. code:: %s\n%s\n' % (
                 lang,
-                '\n'.join(('    ' + s if s.strip() else '') for s in code.splitlines())
+                '\n'.join(('    ' + s if s.strip() else '')
+                          for s in code.splitlines())
             )
-        content = re.sub('\{%\s*highlight\s*(?P<lang>.*?)\s*%\}(?P<code>.*?)\{%\s*endhighlight\s*%\}',
+        regex = (
+            '\{%\s*highlight\s*(?P<lang>.*?)\s*%\}'
+            '(?P<code>.*?)'
+            '\{%\s*endhighlight\s*%\}'
+        )
+        content = re.sub(regex,
                          code_repl, content, flags=re.MULTILINE | re.DOTALL)
 
         return content
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Translate old textile links into new style rst')
+    parser = argparse.ArgumentParser(
+        description='Translate old textile links into new style rst')
     parser.add_argument('filename', nargs=1,
-                       help='File to be processed')
+                        help='File to be processed')
 
     args = parser.parse_args()
 
