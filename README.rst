@@ -53,5 +53,5 @@ What doesn't it do?
     :target: https://pypi.python.org/pypi/textile2rst
     :alt: Number of PyPI downloads
 
-.. _Travis: https://travis-ci.org/magmax/python-inquirer
-.. _Coveralls: https://coveralls.io/r/magmax/python-inquirer
+.. _Travis: https://travis-ci.org/magmax/textile2rst
+.. _Coveralls: https://coveralls.io/r/magmax/textile2rst
