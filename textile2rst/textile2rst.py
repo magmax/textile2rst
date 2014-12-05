@@ -13,6 +13,7 @@ Link = namedtuple('Link',
 
 class Translator(object):
     def process(self, filename):
+        print("hola")
         return self.process_string(self._read_file(filename))
 
     def process_string(self, content):
