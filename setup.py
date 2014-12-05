@@ -21,7 +21,7 @@ class PyTest(Command):
 
     def run(self):
         import sys,subprocess
-        errno = subprocess.call([sys.executable, 'runtests.py', 'tests'])
+        errno = subprocess.call([sys.executable, 'runtests.py', 'tests', '--cov', 'textile2rst'])
         raise SystemExit(errno)
 
 
