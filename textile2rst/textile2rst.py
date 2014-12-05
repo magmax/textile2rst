@@ -87,7 +87,7 @@ def main():
     args = parser.parse_args()
 
     translator = Translator()
-    translator.process(args.filename[0])
+    print(translator.process(args.filename[0]))
 
 
 if __name__ == '__main__':
