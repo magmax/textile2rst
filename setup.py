@@ -51,8 +51,4 @@ setup(name='textile2rst',
       zip_safe=False,
       install_requires=[
       ],
-      test_require=[
-          'pytest',
-          'pytest-cov',
-      ],
       )

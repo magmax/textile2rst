@@ -43,7 +43,7 @@ What doesn't it do?
 
 .. |coveralls| image:: https://coveralls.io/repos/magmax/textile2rst/badge.png
   :target: `Coveralls`_
-  :alt: Coveralls results_
+  :alt: Coveralls results
 
 .. |pip version| image:: https://pypip.in/v/textile2rst/badge.png
     :target: https://pypi.python.org/pypi/textile2rst
@@ -52,3 +52,6 @@ What doesn't it do?
 .. |pip downloads| image:: https://pypip.in/d/textile2rst/badge.png
     :target: https://pypi.python.org/pypi/textile2rst
     :alt: Number of PyPI downloads
+
+.. _Travis: https://travis-ci.org/magmax/python-inquirer
+.. _Coveralls: https://coveralls.io/r/magmax/python-inquirer
